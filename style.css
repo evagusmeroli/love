@@ -1,0 +1,44 @@
+/* Romantic Styling for Valentine's Day */
+
+body {
+    background-color: #FFEBEE; /* Light pink background */
+    color: #B00020; /* Dark red text */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+h1, h2, h3 {
+    color: #C51162; /* Pink for headers */
+    text-shadow: 1px 1px 2px #B00020;
+}
+
+p {
+    line-height: 1.6;
+    padding: 10px;
+}
+
+a {
+    color: #D50032; /* Bright red for links */
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.container {
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #FFCDD2; /* Light red */
+    border-top: 2px solid #D32F2F;
+}
