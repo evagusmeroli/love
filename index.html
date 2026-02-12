@@ -3,177 +3,106 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Buon San Valentino ❤️</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+<title>San Valentino ❤️</title>
 <style>
-:root {
-    --primary-red: #c41e3a;
-    --soft-pink: #ffc0cb;
-    --deep-rose: #8b0000;
-    --cream: #fff5f5;
-    --gold: #d4af37;
-    --text-dark: #2c2c2c;
-}
-* { margin:0; padding:0; box-sizing:border-box; }
-body {
-    font-family: 'Cormorant Garamond', serif;
-    background: linear-gradient(135deg, var(--cream) 0%, #ffe4e1 50%, var(--soft-pink) 100%);
-    min-height: 100vh;
-    overflow-x: hidden;
-    color: var(--text-dark);
-}
-/* Floating hearts */
-.hearts-container { position: fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:0; overflow:hidden; }
-.floating-heart { position:absolute; font-size:20px; animation: float-up 8s linear infinite; opacity:0; }
-@keyframes float-up {
-    0% {opacity:0; transform:translateY(0) rotate(0deg);}
-    10% {opacity:0.6;}
-    90% {opacity:0.6;}
-    100% {opacity:0; transform:translateY(-100vh) rotate(360deg);}
-}
-/* Pages */
-.page { position: fixed; top:0; left:0; width:100%; height:100vh; display:flex; align-items:center; justify-content:center; opacity:0; pointer-events:none; transition:opacity 0.8s ease; z-index:1; }
-.page.active { opacity:1; pointer-events:all; }
-/* Home */
-.home-content { text-align:center; animation:fadeInUp 1.2s ease; padding:20px; }
-@keyframes fadeInUp { from {opacity:0; transform:translateY(30px);} to {opacity:1; transform:translateY(0);} }
-.main-title { font-family:'Playfair Display', serif; font-size:clamp(3rem,8vw,6rem); font-weight:700; color:var(--primary-red); margin-bottom:1rem; text-shadow:2px 2px 4px rgba(0,0,0,0.1); letter-spacing:2px; }
-.subtitle { font-size:clamp(1.2rem,3vw,1.8rem); color:var(--deep-rose); margin-bottom:3rem; font-weight:300; font-style:italic; }
-.btn-start { background: linear-gradient(135deg,var(--primary-red),var(--deep-rose)); color:white; border:none; padding:1.2rem 3rem; font-size:1.3rem; border-radius:50px; cursor:pointer; display:inline-flex; align-items:center; gap:10px; box-shadow:0 8px 20px rgba(196,30,58,0.3); transition:all 0.3s ease; }
-.btn-start:hover { transform:translateY(-3px); box-shadow:0 12px 30px rgba(196,30,58,0.4);}
-.heart-icon { animation: heartbeat 1.5s ease infinite; }
-@keyframes heartbeat { 0%,100%{transform:scale(1);} 50%{transform:scale(1.2);} }
+    body {
+        font-family: 'Cormorant Garamond', serif;
+        background: linear-gradient(135deg, #fff5f5 0%, #ffe4e1 50%, #ffc0cb 100%);
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        text-align: center;
+        padding: 20px;
+        color: #2c2c2c;
+    }
 
-/* Map */
-.map-container { width:90%; max-width:800px; padding:20px; text-align:center; }
-.map-title { font-family:'Playfair Display', serif; font-size:clamp(2rem,5vw,3rem); color:var(--primary-red); margin-bottom:0.5rem; }
-.map-wrapper { position:relative; width:100%; height:500px; background:linear-gradient(135deg, rgba(255,255,255,0.9), rgba(255,192,203,0.3)); border-radius:20px; border:3px solid var(--primary-red); box-shadow:0 10px 40px rgba(0,0,0,0.1); overflow:hidden; margin:0 auto; }
-.location { position:absolute; cursor:pointer; transition: transform 0.3s ease; z-index:2; }
-.location:hover { transform:scale(1.2); }
-.location-marker { display:flex; flex-direction:column; align-items:center; }
-.marker-icon { font-size:2.5rem; animation:pulse 2s ease infinite; filter:drop-shadow(0 4px 8px rgba(0,0,0,0.2)); }
-@keyframes pulse {0%,100%{transform:scale(1);}50%{transform:scale(1.1);}}
+    h1 { color: #c41e3a; margin-bottom: 1rem; }
+    h2 { color: #8b0000; margin-bottom: 1rem; }
+    p { margin-bottom: 1.5rem; }
 
-/* Buttons */
-.btn-back { position:absolute; top:20px; left:20px; background:white; border:2px solid var(--primary-red); color:var(--primary-red); padding:10px 20px; border-radius:25px; font-family:'Cormorant Garamond', serif; font-size:1rem; font-weight:600; cursor:pointer; transition:all 0.3s ease; z-index:10; }
-.btn-back:hover { background:var(--primary-red); color:white; }
+    input {
+        padding: 1rem;
+        font-size: 1.2rem;
+        border: 2px solid #ffc0cb;
+        border-radius: 10px;
+        text-align: center;
+    }
 
-/* Secret */
-.secret-content { width:90%; max-width:700px; padding:20px; text-align:center; animation:fadeInUp 0.8s ease; }
-.secret-title { font-family:'Playfair Display', serif; font-size:clamp(2rem,5vw,3rem); color:var(--primary-red); margin-bottom:2rem; }
-.secret-box { background: linear-gradient(135deg, white, var(--cream)); padding:3rem 2rem; border-radius:20px; border:3px solid var(--soft-pink); box-shadow:0 10px 40px rgba(0,0,0,0.1); }
-.secret-text { font-size:1.4rem; line-height:2; color:var(--text-dark); margin-bottom:2rem; }
-.secret-image-placeholder { width:100%; height:300px; background:linear-gradient(135deg,var(--soft-pink),var(--cream)); border-radius:15px; display:flex; align-items:center; justify-content:center; font-size:1.2rem; color:var(--primary-red); border:3px dashed var(--primary-red); margin-top:2rem; }
+    button {
+        padding: 1rem 2rem;
+        font-size: 1.2rem;
+        border: none;
+        border-radius: 25px;
+        margin: 10px;
+        cursor: pointer;
+        font-family: 'Cormorant Garamond', serif;
+        font-weight: 600;
+    }
 
-.btn-next-secret { background: linear-gradient(135deg, var(--primary-red), var(--deep-rose)); color:white; border:none; padding:1rem 2rem; font-size:1.1rem; border-radius:30px; cursor:pointer; margin-top:2rem; display:block; margin-left:auto; margin-right:auto; transition:all 0.3s ease; }
-.btn-next-secret:hover { transform:translateY(-2px); box-shadow:0 8px 25px rgba(196,30,58,0.4); }
+    .btn-submit { background: linear-gradient(135deg, #c41e3a, #8b0000); color: white; }
+    .btn-next { background: linear-gradient(135deg, #ffc0cb, #ff69b4); color: white; }
+    .btn-choice { background: linear-gradient(135deg, #d4af37, #b8860b); color: white; }
 
-/* Password */
-.password-modal { max-width:500px; text-align:center; }
-.password-title { font-family:'Playfair Display', serif; font-size:1.8rem; color:var(--primary-red); margin-bottom:1rem; }
-.password-hint { font-size:1.1rem; color:var(--deep-rose); margin-bottom:1.5rem; font-style:italic; }
-.password-input { width:100%; padding:1rem; font-size:1.2rem; border:2px solid var(--soft-pink); border-radius:10px; margin-bottom:1rem; text-align:center; transition:border-color 0.3s ease; }
-.password-input:focus { outline:none; border-color:var(--primary-red); }
-.btn-submit { background:linear-gradient(135deg,var(--primary-red),var(--deep-rose)); color:white; border:none; padding:1rem 2.5rem; font-size:1.2rem; border-radius:25px; cursor:pointer; transition:all 0.3s ease; }
-.btn-submit:hover { transform:translateY(-2px); box-shadow:0 6px 20px rgba(196,30,58,0.4); }
-.password-error { color:var(--deep-rose); font-size:1rem; margin-top:1rem; font-style:italic; }
+    .hidden { display: none; }
 
-/* Modal */
-.modal { display:none; position:fixed; z-index:100; left:0; top:0; width:100%; height:100%; background-color:rgba(0,0,0,0.7); animation:fadeIn 0.3s ease; }
-.modal.active { display:flex; align-items:center; justify-content:center; }
-.modal-content { background:linear-gradient(135deg, white, var(--cream)); padding:2rem; border-radius:20px; max-width:600px; width:90%; box-shadow:0 15px 50px rgba(0,0,0,0.3); position:relative; animation:slideIn 0.4s ease; }
-.modal-close { position:absolute; top:15px; right:20px; font-size:2rem; color:var(--primary-red); cursor:pointer; transition:transform 0.2s ease; }
-.modal-close:hover { transform:scale(1.2); }
-
-@media (max-width:768px){ .map-wrapper{height:400px;} .marker-icon{font-size:2rem;} }
 </style>
 </head>
 <body>
-<div class="hearts-container" id="heartsContainer"></div>
 
-<!-- Home Page -->
-<div class="page active" id="homePage">
-    <div class="home-content">
-        <h1 class="main-title">Buon San Valentino ❤️</h1>
-        <p class="subtitle">Preparati a un'avventura speciale!</p>
-        <button class="btn-start" onclick="startJourney()">
-            Let's go! <span class="heart-icon">❤️</span>
-        </button>
-    </div>
+<!-- Password -->
+<div id="passwordSection">
+    <h1>🔒 Nuove Avventure</h1>
+    <p>Indovina la password per iniziare la tua avventura:</p>
+    <input type="text" id="passwordInput" placeholder="gg/mm/aaaa">
+    <button class="btn-submit" onclick="checkPassword()">Sblocca</button>
+    <p id="passwordError" style="color: red;"></p>
 </div>
 
-<!-- Map Page -->
-<div class="page" id="mapPage">
-    <button class="btn-back" onclick="goHome()">← Indietro</button>
-    <div class="map-container">
-        <h2 class="map-title">Debug our new adventures</h2>
-        <div class="map-wrapper">
-            <div class="location" style="top:50%; left:50%;" onclick="showSecretPrompt()">
-                <div class="location-marker">
-                    <span class="marker-icon">❤️🎁</span>
-                </div>
-            </div>
-        </div>
-    </div>
+<!-- Primo Premio -->
+<div id="prizeSection" class="hidden">
+    <h2>🏆 Primo Premio</h2>
+    <p>Tutta la magia del nostro primo premio è qui per te!</p>
+    <button class="btn-next" onclick="showValentine()">Scopri la sorpresa finale →</button>
 </div>
 
-<!-- Secret Page -->
-<div class="page" id="secretPage1">
-    <button class="btn-back" onclick="backToMap()">← Torna alla Mappa</button>
-    <div class="secret-content">
-        <h2 class="secret-title">🎁 Premio Speciale</h2>
-        <div class="secret-box">
-            <p class="secret-text">Meraviglioso! Ora sei il mio San Valentino? 💖</p>
-            <div class="secret-image-placeholder">❤️</div>
-        </div>
-    </div>
-</div>
-
-<!-- Password Modal -->
-<div class="modal" id="passwordModal">
-    <div class="modal-content password-modal">
-        <span class="modal-close" onclick="closePasswordModal()">&times;</span>
-        <h3 class="password-title">Inserisci la Password Segreta</h3>
-        <p class="password-hint" id="passwordHint">21/11/2024</p>
-        <input type="text" class="password-input" id="passwordInput" placeholder="gg/mm/aaaa">
-        <button class="btn-submit" onclick="checkPassword()">Sblocca</button>
-        <p class="password-error" id="passwordError"></p>
-    </div>
+<!-- Domanda finale -->
+<div id="valentineSection" class="hidden">
+    <h1>💝 Vuoi essere il mio San Valentino? 💝</h1>
+    <button class="btn-choice" onclick="chooseValentine(true)">Sì ❤️</button>
+    <button class="btn-choice" onclick="chooseValentine(false)">No 😢</button>
+    <p id="finalMessage" style="margin-top: 20px; font-size: 1.3rem;"></p>
 </div>
 
 <script>
-// Floating hearts
-window.addEventListener('load', ()=>{ createFloatingHearts(); setInterval(createFloatingHearts,3000); });
-function createFloatingHearts(){ const c=document.getElementById('heartsContainer'); const h=document.createElement('div'); h.className='floating-heart'; h.innerHTML='❤️'; h.style.left=Math.random()*100+'%'; h.style.animationDuration=(Math.random()*3+5)+'s'; h.style.fontSize=(Math.random()*10+15)+'px'; c.appendChild(h); setTimeout(()=>h.remove(),8000); }
+    const correctPassword = "21/11/2024"; // La tua password
+    function checkPassword() {
+        const input = document.getElementById('passwordInput').value.trim();
+        if(input === correctPassword){
+            document.getElementById('passwordSection').classList.add('hidden');
+            document.getElementById('prizeSection').classList.remove('hidden');
+        } else {
+            document.getElementById('passwordError').textContent = '❌ Password errata. Riprova!';
+        }
+    }
 
-// Pages
-function startJourney(){ showPage('mapPage'); }
-function goHome(){ showPage('homePage'); }
-function backToMap(){ showPage('mapPage'); }
-function showPage(id){ document.querySelectorAll('.page').forEach(p=>p.classList.remove('active')); document.getElementById(id).classList.add('active'); }
+    function showValentine() {
+        document.getElementById('prizeSection').classList.add('hidden');
+        document.getElementById('valentineSection').classList.remove('hidden');
+    }
 
-// Password
-const passwords={1:"21/11/2024"};
-const hints={1:"💝 Il giorno del nostro primo appuntamento"};
-let currentSecretTarget=1;
-function showSecretPrompt(){ currentSecretTarget=1; openPasswordPrompt(1); }
-function openPasswordPrompt(secretNumber){ document.getElementById('passwordHint').textContent=hints[secretNumber]; document.getElementById('passwordInput').value=''; document.getElementById('passwordError').textContent=''; document.getElementById('passwordModal').classList.add('active'); }
-function closePasswordModal(){ document.getElementById('passwordModal').classList.remove('active'); }
-function checkPassword(){
-    const input=document.getElementById('passwordInput').value.trim();
-    if(input===passwords[currentSecretTarget]){ closePasswordModal(); showPage('secretPage1'); celebrateUnlock(); }
-    else{ document.getElementById('passwordError').textContent='❌ Password errata. Riprova!'; document.getElementById('passwordInput').value=''; }
-}
-function celebrateUnlock(){ for(let i=0;i<20;i++){ setTimeout(()=>createFloatingHearts(),i*100); } }
-
-// Enter key
-document.addEventListener('DOMContentLoaded',()=>{
-    const pi=document.getElementById('passwordInput');
-    if(pi){ pi.addEventListener('keypress',(e)=>{ if(e.key==='Enter'){ checkPassword(); } }); }
-    document.querySelectorAll('.modal').forEach(m=>{ m.addEventListener('click',(e)=>{ if(e.target===m){ m.classList.remove('active'); } }); });
-});
+    function chooseValentine(answer) {
+        const msg = document.getElementById('finalMessage');
+        if(answer){
+            msg.textContent = "Yay! ❤️ Non vedo l'ora di passare San Valentino con te!";
+        } else {
+            msg.textContent = "😢 Oh no… forse un'altra volta!";
+        }
+        // Nascondi i pulsanti
+        document.querySelectorAll('#valentineSection button').forEach(b => b.style.display = 'none');
+    }
 </script>
+
 </body>
 </html>
