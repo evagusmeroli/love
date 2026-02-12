@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Il Nostro Segreto ❤️</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-red: #c41e3a;
+            --soft-pink: #ffc0cb;
+            --deep-rose: #8b0000;
+            --cream: #fff5f5;
+            --gold: #d4af37;
+            --text-dark: #2c2c2c;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Cormorant Garamond', serif;
+            background: linear-gradient(135deg, var(--cream) 0%, #ffe4e1 50%, var(--soft-pink) 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            color: var(--text-dark);
+        }
+
+        /* Floating Hearts Animation */
+        .hearts-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .floating-heart {
+            position: absolute;
+            font-size: 20px;
+            animation: float-up 8s linear infinite;
+            opacity: 0;
+        }
+
+        @keyframes float-up {
+            0% {
+                opacity: 0;
+                transform: translateY(0) rotate(0deg);
+            }
+            10% {
+                opacity: 0.6;
+            }
+            90% {
+                opacity: 0.6;
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-100vh) rotate(360deg);
+            }
+        }
+
+        /* Page Transitions */
+        .page {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.8s ease;
+            z-index: 1;
+        }
+
+        .page.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        /* Home Page */
+        .home-content {
+            text-align: center;
+            animation: fadeInUp 1.2s ease;
+            padding: 20px;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .main-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 700;
+            color: var(--primary-red);
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            letter-spacing: 2px;
+        }
+
+        .subtitle {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            color: var(--deep-rose);
+            margin-bottom: 3rem;
+            font-weight: 300;
+            font-style: italic;
+        }
+
+        .btn-start {
+            background: linear-gradient(135deg, var(--primary-red), var(--deep-rose));
+            color: white;
+            border: none;
+            padding: 1.2rem 3rem;
+            font-size: 1.3rem;
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(196, 30, 58, 0.3);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-start:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(196, 30, 58, 0.4);
+        }
+
+        .heart-icon {
+            animation: heartbeat 1.5s ease infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        /* Map Page */
+        .map-container {
+            width: 90%;
+            max-width: 800px;
+            padding: 20px;
+        }
+
+        .map-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 5vw, 3rem);
+            color: var(--primary-red);
+            text-align: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .map-subtitle {
+            text-align: center;
+            font-size: 1.1rem;
+            color: var(--deep-rose);
+            margin-bottom: 2rem;
+            font-style: italic;
+        }
+
+        .map-wrapper {
+            position: relative;
+            width: 100%;
+            height: 500px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(255,192,203,0.3));
+            border-radius: 20px;
+            border: 3px solid var(--primary-red);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .map-wrapper::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                repeating-linear-gradient(0deg, transparent, transparent 49px, rgba(196, 30, 58, 0.05) 49px, rgba(196, 30, 58, 0.05) 50px),
+                repeating-linear-gradient(90deg, transparent, transparent 49px, rgba(196, 30, 58, 0.05) 49px, rgba(196, 30, 58, 0.05) 50px);
+            pointer-events: none;
+        }
+
+        .location {
+            position: absolute;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            z-index: 2;
+        }
+
+        .location:hover {
+            transform: scale(1.2);
+        }
+
+        .location-marker {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .marker-icon {
+            font-size: 2.5rem;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+            animation: pulse 2s ease infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .marker-label {
+            background: white;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--primary-red);
+            margin-top: 5px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+
+        /* Buttons */
+        .btn-back {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: white;
+            border: 2px solid var(--primary-red);
+            color: var(--primary-red);
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .btn-back:hover {
+            background: var(--primary-red);
+            color: white;
+        }
+
+        .btn-secret {
+            margin-top: 2rem;
+            background: linear-gradient(135deg, var(--gold), #b8860b);
+            color: white;
+            border: none;
+            padding: 1rem 2.5rem;
+            font-size: 1.2rem;
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 600;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.3);
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn-secret:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, white, var(--cream));
+            padding: 2rem;
+            border-radius: 20px;
+            max-width: 600px;
+            width: 90%;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.3);
+            position: relative;
+            animation: slideIn 0.4s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 2rem;
+            color: var(--primary-red);
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .modal-close:hover {
+            transform: scale(1.2);
+        }
+
+        .memory-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--primary-red);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .memory-image {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, var(--soft-pink), var(--cream));
+            border-radius: 15px;
+            margin: 1rem 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            border: 3px dashed var(--primary-red);
+        }
+
+        .memory-text {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: var(--text-dark);
+            text-align: center;
+        }
+
+        /* Secret Pages */
+        .secret-content {
+            width: 90%;
+            max-width: 700px;
+            padding: 20px;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .secret-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 5vw, 3rem);
+            color: var(--primary-red);
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .secret-box {
+            background: linear-gradient(135deg, white, var(--cream));
+            padding: 3rem 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            border: 3px solid var(--soft-pink);
+        }
+
+        .secret-box.final {
+            border-color: var(--gold);
+            background: linear-gradient(135deg, #fff9e6, var(--cream));
+        }
+
+        .secret-text {
+            font-size: 1.4rem;
+            line-height: 2;
+            color: var(--text-dark);
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .secret-text.large {
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--primary-red);
+        }
+
+        .secret-image-placeholder {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(135deg, var(--soft-pink), var(--cream));
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: var(--primary-red);
+            border: 3px dashed var(--primary-red);
+            margin-top: 2rem;
+        }
+
+        .btn-next-secret {
+            background: linear-gradient(135deg, var(--primary-red), var(--deep-rose));
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 600;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 2rem;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn-next-secret:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(196, 30, 58, 0.4);
+        }
+
+        /* Password Modal */
+        .password-modal {
+            max-width: 500px;
+            text-align: center;
+        }
+
+        .password-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--primary-red);
+            margin-bottom: 1rem;
+        }
+
+        .password-hint {
+            font-size: 1.1rem;
+            color: var(--deep-rose);
+            margin-bottom: 1.5rem;
+            font-style: italic;
+        }
+
+        .password-input {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1.2rem;
+            font-family: 'Cormorant Garamond', serif;
+            border: 2px solid var(--soft-pink);
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            text-align: center;
+            transition: border-color 0.3s ease;
+        }
+
+        .password-input:focus {
+            outline: none;
+            border-color: var(--primary-red);
+        }
+
+        .btn-submit {
+            background: linear-gradient(135deg, var(--primary-red), var(--deep-rose));
+            color: white;
+            border: none;
+            padding: 1rem 2.5rem;
+            font-size: 1.2rem;
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 600;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(196, 30, 58, 0.4);
+        }
+
+        .password-error {
+            color: var(--deep-rose);
+            font-size: 1rem;
+            margin-top: 1rem;
+            font-style: italic;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .map-wrapper {
+                height: 400px;
+            }
+            
+            .marker-icon {
+                font-size: 2rem;
+            }
+            
+            .marker-label {
+                font-size: 0.8rem;
+                padding: 4px 10px;
+            }
+            
+            .secret-box {
+                padding: 2rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating hearts animation -->
+    <div class="hearts-container" id="heartsContainer"></div>
+
+    <!-- Home Page -->
+    <div class="page active" id="homePage">
+        <div class="home-content">
+            <h1 class="main-title">Il Nostro Segreto</h1>
+            <p class="subtitle">Un viaggio attraverso i nostri momenti speciali</p>
+            <button class="btn-start" onclick="startJourney()">
+                Inizia l'Avventura
+                <span class="heart-icon">❤️</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Map Page -->
+    <div class="page" id="mapPage">
+        <button class="btn-back" onclick="goHome()">← Indietro</button>
+        
+        <div class="map-container">
+            <h2 class="map-title">I Nostri Luoghi del Cuore</h2>
+            <p class="map-subtitle">Clicca su ogni cuore per rivivere quel momento</p>
+            
+            <div class="map-wrapper">
+                <!-- Location 1 -->
+                <div class="location" style="top: 25%; left: 30%;" onclick="showMemory(1)">
+                    <div class="location-marker">
+                        <span class="marker-icon">❤️</span>
+                        <span class="marker-label">Luogo 1</span>
+                    </div>
+                </div>
+
+                <!-- Location 2 -->
+                <div class="location" style="top: 50%; left: 60%;" onclick="showMemory(2)">
+                    <div class="location-marker">
+                        <span class="marker-icon">❤️</span>
+                        <span class="marker-label">Luogo 2</span>
+                    </div>
+                </div>
+
+                <!-- Location 3 -->
+                <div class="location" style="top: 70%; left: 40%;" onclick="showMemory(3)">
+                    <div class="location-marker">
+                        <span class="marker-icon">❤️</span>
+                        <span class="marker-label">Luogo 3</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button class="btn-secret" onclick="showSecretPrompt()">
+            🔒 Scopri i Segreti
+        </button>
+    </div>
+
+    <!-- Memory Modal -->
+    <div class="modal" id="memoryModal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeMemory()">&times;</span>
+            <div class="memory-content">
+                <h3 class="memory-title" id="memoryTitle"></h3>
+                <div class="memory-image" id="memoryImage"></div>
+                <p class="memory-text" id="memoryText"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Secret Pages -->
+    <div class="page" id="secretPage1">
+        <button class="btn-back" onclick="backToMap()">← Torna alla Mappa</button>
+        <div class="secret-content">
+            <h2 class="secret-title">Primo Segreto</h2>
+            <div class="secret-box">
+                <p class="secret-text">
+                    Ogni volta che ti guardo, il mondo si ferma. 
+                    Sei la mia persona preferita, il mio posto sicuro, 
+                    la mia casa ovunque io sia.
+                </p>
+                <div class="secret-image-placeholder">
+                    📸 [Aggiungi qui la tua foto speciale]
+                </div>
+            </div>
+            <button class="btn-next-secret" onclick="promptSecret(2)">
+                Scopri il Prossimo Segreto →
+            </button>
+        </div>
+    </div>
+
+    <div class="page" id="secretPage2">
+        <button class="btn-back" onclick="backToMap()">← Torna alla Mappa</button>
+        <div class="secret-content">
+            <h2 class="secret-title">Secondo Segreto</h2>
+            <div class="secret-box">
+                <p class="secret-text">
+                    Grazie per ogni sorriso, ogni abbraccio, ogni momento condiviso. 
+                    Con te ho scoperto cosa significa amare davvero.
+                </p>
+                <div class="secret-image-placeholder">
+                    📸 [Aggiungi qui un'altra foto speciale]
+                </div>
+            </div>
+            <button class="btn-next-secret" onclick="promptSecret(3)">
+                Scopri la Sorpresa Finale →
+            </button>
+        </div>
+    </div>
+
+    <div class="page" id="secretPage3">
+        <button class="btn-back" onclick="backToMap()">← Torna alla Mappa</button>
+        <div class="secret-content">
+            <h2 class="secret-title">💝 Sorpresa Finale 💝</h2>
+            <div class="secret-box final">
+                <p class="secret-text large">
+                    Buon San Valentino, amore mio! ❤️
+                </p>
+                <p class="secret-text">
+                    Questo è solo l'inizio di tantissimi altri momenti insieme. 
+                    Ti amo oggi, domani e per sempre.
+                </p>
+                <div class="secret-image-placeholder">
+                    💕 [La tua sorpresa di San Valentino]
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Password Prompt Modal -->
+    <div class="modal" id="passwordModal">
+        <div class="modal-content password-modal">
+            <span class="modal-close" onclick="closePasswordModal()">&times;</span>
+            <h3 class="password-title">Inserisci la Password Segreta</h3>
+            <p class="password-hint" id="passwordHint"></p>
+            <input type="text" class="password-input" id="passwordInput" placeholder="gg/mm/aaaa">
+            <button class="btn-submit" onclick="checkPassword()">Sblocca</button>
+            <p class="password-error" id="passwordError"></p>
+        </div>
+    </div>
+
+    <script>
+        // Dati dei luoghi - PERSONALIZZA QUESTI!
+        const memories = {
+            1: {
+                title: "Il Nostro Primo Incontro",
+                text: "Quel giorno in cui i nostri sguardi si sono incrociati per la prima volta... chi avrebbe mai detto che sarebbe stato l'inizio di tutto questo?",
+                emoji: "🌟"
+            },
+            2: {
+                title: "Il Primo Bacio",
+                text: "Il momento in cui il tempo si è fermato. Ancora adesso sento le farfalle nello stomaco quando ci penso.",
+                emoji: "💋"
+            },
+            3: {
+                title: "La Nostra Avventura",
+                text: "Quel viaggio indimenticabile dove abbiamo riso, sognato e capito che insieme possiamo andare ovunque.",
+                emoji: "✈️"
+            }
+        };
+
+        // Password per ogni sezione segreta - CAMBIA QUESTE DATE!
+        const passwords = {
+            1: "14/02/2024",  // Cambia con una data importante per voi
+            2: "25/12/2023",  // Cambia con un'altra data speciale
+            3: "01/01/2024"   // Cambia con un'altra data significativa
+        };
+
+        // Hint per le password
+        const hints = {
+            1: "💝 Il giorno del nostro primo appuntamento",
+            2: "🎄 Quando ci siamo detti 'ti amo' per la prima volta",
+            3: "🎉 Il giorno che abbiamo deciso di stare insieme per sempre"
+        };
+
+        let currentSecretTarget = 1;
+
+        // Crea cuori fluttuanti all'avvio
+        window.addEventListener('load', () => {
+            createFloatingHearts();
+            setInterval(createFloatingHearts, 3000);
+        });
+
+        function createFloatingHearts() {
+            const container = document.getElementById('heartsContainer');
+            const heart = document.createElement('div');
+            heart.className = 'floating-heart';
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.animationDuration = (Math.random() * 3 + 5) + 's';
+            heart.style.fontSize = (Math.random() * 10 + 15) + 'px';
+            container.appendChild(heart);
+            
+            setTimeout(() => heart.remove(), 8000);
+        }
+
+        // Navigazione
+        function startJourney() {
+            showPage('mapPage');
+        }
+
+        function goHome() {
+            showPage('homePage');
+        }
+
+        function backToMap() {
+            showPage('mapPage');
+        }
+
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            document.getElementById(pageId).classList.add('active');
+        }
+
+        // Mostra memoria del luogo
+        function showMemory(locationId) {
+            const memory = memories[locationId];
+            document.getElementById('memoryTitle').textContent = memory.title;
+            document.getElementById('memoryImage').textContent = memory.emoji;
+            document.getElementById('memoryText').textContent = memory.text;
+            document.getElementById('memoryModal').classList.add('active');
+        }
+
+        function closeMemory() {
+            document.getElementById('memoryModal').classList.remove('active');
+        }
+
+        // Sistema password per sezioni segrete
+        function showSecretPrompt() {
+            currentSecretTarget = 1;
+            openPasswordPrompt(1);
+        }
+
+        function promptSecret(secretNumber) {
+            currentSecretTarget = secretNumber;
+            openPasswordPrompt(secretNumber);
+        }
+
+        function openPasswordPrompt(secretNumber) {
+            document.getElementById('passwordHint').textContent = hints[secretNumber];
+            document.getElementById('passwordInput').value = '';
+            document.getElementById('passwordError').textContent = '';
+            document.getElementById('passwordModal').classList.add('active');
+        }
+
+        function closePasswordModal() {
+            document.getElementById('passwordModal').classList.remove('active');
+        }
+
+        function checkPassword() {
+            const input = document.getElementById('passwordInput').value.trim();
+            const correctPassword = passwords[currentSecretTarget];
+            
+            if (input === correctPassword) {
+                closePasswordModal();
+                showPage('secretPage' + currentSecretTarget);
+                celebrateUnlock();
+            } else {
+                document.getElementById('passwordError').textContent = '❌ Password errata. Riprova!';
+                document.getElementById('passwordInput').value = '';
+            }
+        }
+
+        // Animazione di celebrazione quando si sblocca un segreto
+        function celebrateUnlock() {
+            for (let i = 0; i < 20; i++) {
+                setTimeout(() => createFloatingHearts(), i * 100);
+            }
+        }
+
+        // Permetti invio con Enter
+        document.addEventListener('DOMContentLoaded', () => {
+            const passwordInput = document.getElementById('passwordInput');
+            if (passwordInput) {
+                passwordInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        checkPassword();
+                    }
+                });
+            }
+            
+            // Chiudi modal cliccando fuori
+            document.querySelectorAll('.modal').forEach(modal => {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) {
+                        modal.classList.remove('active');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
