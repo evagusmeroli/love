@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Il Nostro Segreto ❤️</title>
+    <title>Buon San Valentino ❤️</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
@@ -545,11 +545,11 @@
     <!-- Home Page -->
     <div class="page active" id="homePage">
         <div class="home-content">
-            <h1 class="main-title">Il Nostro Segreto</h1>
-            <p class="subtitle">Un viaggio attraverso i nostri momenti speciali</p>
+            <h1 class="main-title"></h1>
+            <p class="subtitle">❤️</p>
             <button class="btn-start" onclick="startJourney()">
-                Inizia l'Avventura
-                <span class="heart-icon">❤️</span>
+                Let's go!
+                <span class="heart-icon"></span>
             </button>
         </div>
     </div>
@@ -559,38 +559,38 @@
         <button class="btn-back" onclick="goHome()">← Indietro</button>
         
         <div class="map-container">
-            <h2 class="map-title">I Nostri Luoghi del Cuore</h2>
-            <p class="map-subtitle">Clicca su ogni cuore per rivivere quel momento</p>
+            <h2 class="map-title">Debug our new adventures</h2>
+            <p class="map-subtitle"></p>
             
             <div class="map-wrapper">
                 <!-- Location 1 -->
                 <div class="location" style="top: 25%; left: 30%;" onclick="showMemory(1)">
                     <div class="location-marker">
-                        <span class="marker-icon">❤️</span>
-                        <span class="marker-label">Luogo 1</span>
+                        <span class="marker-icon">❤️⛔</span>
+                        <span class="marker-label"></span>
                     </div>
                 </div>
 
                 <!-- Location 2 -->
                 <div class="location" style="top: 50%; left: 60%;" onclick="showMemory(2)">
                     <div class="location-marker">
-                        <span class="marker-icon">❤️</span>
-                        <span class="marker-label">Luogo 2</span>
+                        <span class="marker-icon">❤️🎾</span>
+                        <span class="marker-label"></span>
                     </div>
                 </div>
 
                 <!-- Location 3 -->
                 <div class="location" style="top: 70%; left: 40%;" onclick="showMemory(3)">
                     <div class="location-marker">
-                        <span class="marker-icon">❤️</span>
-                        <span class="marker-label">Luogo 3</span>
+                        <span class="marker-icon">❤️🎨</span>
+                        <span class="marker-label"></span>
                     </div>
                 </div>
             </div>
         </div>
 
         <button class="btn-secret" onclick="showSecretPrompt()">
-            🔒 Scopri i Segreti
+            🔒 Got a secret, can you keep it?
         </button>
     </div>
 
@@ -670,7 +670,7 @@
         <div class="modal-content password-modal">
             <span class="modal-close" onclick="closePasswordModal()">&times;</span>
             <h3 class="password-title">Inserisci la Password Segreta</h3>
-            <p class="password-hint" id="passwordHint"></p>
+            <p class="password-hint" id="passwordHint">21/11/2024</p>
             <input type="text" class="password-input" id="passwordInput" placeholder="gg/mm/aaaa">
             <button class="btn-submit" onclick="checkPassword()">Sblocca</button>
             <p class="password-error" id="passwordError"></p>
