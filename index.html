@@ -566,7 +566,7 @@
                 <!-- Location 1 -->
                 <div class="location" style="top: 25%; left: 30%;" onclick="showMemory(1)">
                     <div class="location-marker">
-                        <span class="marker-icon">❤️⛔</span>
+                        <span class="marker-icon">❤️🎾</span>
                         <span class="marker-label"></span>
                     </div>
                 </div>
@@ -574,7 +574,7 @@
                 <!-- Location 2 -->
                 <div class="location" style="top: 50%; left: 60%;" onclick="showMemory(2)">
                     <div class="location-marker">
-                        <span class="marker-icon">❤️🎾</span>
+                        <span class="marker-icon">❤️⛔</span>
                         <span class="marker-label"></span>
                     </div>
                 </div>
@@ -582,7 +582,7 @@
                 <!-- Location 3 -->
                 <div class="location" style="top: 70%; left: 40%;" onclick="showMemory(3)">
                     <div class="location-marker">
-                        <span class="marker-icon">❤️🎨</span>
+                        <span class="marker-icon">❤️🌶️</span>
                         <span class="marker-label"></span>
                     </div>
                 </div>
@@ -613,8 +613,7 @@
             <h2 class="secret-title">3^ premio</h2>
             <div class="secret-box">
                 <p class="secret-text">
-                    Una serata di fuoco, 
-                    insieme a scoprire cosa ci piace non poco!
+                   
                   
                 </p>
                 <div class="secret-image-placeholder">
@@ -651,14 +650,14 @@
             <h2 class="secret-title">💝 Sorpresa Finale 💝</h2>
             <div class="secret-box final">
                 <p class="secret-text large">
-                    Buon San Valentino, amore mio! ❤️
+                   Meri love, Valentine's Day Mubarak ho ❤️
                 </p>
                 <p class="secret-text">
-                    Questo è solo l'inizio di tantissimi altri momenti insieme. 
-                    Ti amo oggi, domani e per sempre.
+                Una serata di fuoco, 
+                    insieme a scoprire cosa ci piace non poco!
                 </p>
                 <div class="secret-image-placeholder">
-                    💕 [La tua sorpresa di San Valentino]
+                   
                 </div>
             </div>
         </div>
@@ -699,15 +698,13 @@
         // Password per ogni sezione segreta - CAMBIA QUESTE DATE!
         const passwords = {
             1: "21/11/2024",  // Cambia con una data importante per voi
-            2: "25/12/2023",  // Cambia con un'altra data speciale
-            3: "01/01/2024"   // Cambia con un'altra data significativa
+           
         };
 
         // Hint per le password
         const hints = {
             1: "💝 Il giorno del nostro primo appuntamento",
-            2: "🎄 Quando ci siamo detti 'ti amo' per la prima volta",
-            3: "🎉 Il giorno che abbiamo deciso di stare insieme per sempre"
+        
         };
 
         let currentSecretTarget = 1;
@@ -770,10 +767,18 @@
             openPasswordPrompt(1);
         }
 
-        function promptSecret(secretNumber) {
-            currentSecretTarget = secretNumber;
-            openPasswordPrompt(secretNumber);
-        }
+       function promptSecret(secretNumber) {
+    // Se è il primo segreto → chiedi password
+    if (secretNumber === 1) {
+        currentSecretTarget = 1;
+        openPasswordPrompt(1);
+    } else {
+        // Per 2 e 3 vai direttamente alla pagina
+        showPage('secretPage' + secretNumber);
+        celebrateUnlock();
+    }
+}
+
 
         function openPasswordPrompt(secretNumber) {
             document.getElementById('passwordHint').textContent = hints[secretNumber];
